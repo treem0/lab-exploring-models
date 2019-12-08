@@ -2,7 +2,6 @@ require('dotenv').config();
 require('../lib/utils/connect')();
 const request = require('supertest');
 const app = require('../lib/app');
-const Car = require('../lib/models/Car');
 
 
 describe('application routes', () => {
@@ -47,21 +46,21 @@ describe('application routes', () => {
         });
       });
   });
-  // it('has a /car PUT route', () => {
-  //   return request(app)
-  //     .put('/cars/:id')
-  //     .send({
-  //       name: 'Tesla Model S',
-  //       horsepower: 300
-  //     })
-  //     .then(res => {
-  //       expect(res.params).toEqual({
-  //         __v: expect.any(Number),
-  //         _id: expect.any(String),
-  //         name: 'Tesla Model S',
-  //         horsepower: 300,
-  //       });
-  //     });
-  // });
+  it('has a /car PUT route', () => {
+    return request(app)
+      .put('/cars/:id')
+      .send({
+        name: 'Tesla Model S',
+        horsepower: 300
+      })
+      .then(res => {
+        expect(res.params).toEqual({
+          __v: expect.any(Number),
+          _id: expect.any(String),
+          name: 'Tesla Model S',
+          horsepower: 300,
+        });
+      });
+  });
 });
   
