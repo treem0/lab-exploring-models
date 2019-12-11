@@ -2,6 +2,7 @@ require('dotenv').config();
 require('../lib/utils/connect')();
 const request = require('supertest');
 const app = require('../lib/app');
+const Car = require('../lib/models/Car');
 
 
 describe('application routes', () => {
@@ -46,19 +47,24 @@ describe('application routes', () => {
         });
       });
   });
-  it('has a /car PUT route', () => {
+  it('has a /car PUT route', async() => {
+    const car = await Car.create({
+      name: 'tesla',
+      horsepower: 400
+    });
+
     return request(app)
-      .put('/cars/:id')
+      .put(`/cars/${car._id}`)
       .send({
         name: 'Tesla Model S',
         horsepower: 300
       })
       .then(res => {
         expect(res.params).toEqual({
-          __v: expect.any(Number),
           _id: expect.any(String),
-          name: 'Tesla Model S',
-          horsepower: 300,
+          name: car.name,
+          horsepower: car.horsepower,
+          __v: expect.any(Number)
         });
       });
   });
