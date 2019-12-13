@@ -56,14 +56,14 @@ describe('application routes', () => {
     return request(app)
       .put(`/cars/${car._id}`)
       .send({
-        name: 'Tesla Model S',
-        horsepower: 300
+        name: 'Tesla Cyber Truck',
+        horsepower: 500,
       })
       .then(res => {
         expect(res.params).toEqual({
           _id: expect.any(String),
-          name: car.name,
-          horsepower: car.horsepower,
+          name: 'Tesla Cyber Truck',
+          horsepower: 500,
           __v: expect.any(Number)
         });
       });
